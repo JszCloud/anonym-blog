@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,7 @@ import java.io.Serializable;
  * @author Mr.Li   ℗Hide-Community
  * @since 2018-05-19
  */
+@Data
 @TableName("blog_tags")
 public class BlogTags extends Model<BlogTags> {
 
@@ -43,59 +46,9 @@ public class BlogTags extends Model<BlogTags> {
     private Date updateTime;
 
 
-    public Long getTagsId() {
-        return tagsId;
-    }
-
-    public void setTagsId(Long tagsId) {
-        this.tagsId = tagsId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.tagsId;
     }
 
-    @Override
-    public String toString() {
-        return "BlogTags{" +
-        ", tagsId=" + tagsId +
-        ", name=" + name +
-        ", description=" + description +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        "}";
-    }
 }

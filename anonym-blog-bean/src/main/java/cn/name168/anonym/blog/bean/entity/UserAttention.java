@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,7 @@ import java.io.Serializable;
  * @author Mr.Li   ℗Hide-Community
  * @since 2018-05-19
  */
+@Data
 @TableName("user_attention")
 public class UserAttention extends Model<UserAttention> {
 

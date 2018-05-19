@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,7 @@ import java.io.Serializable;
  * @author Mr.Li   ℗Hide-Community
  * @since 2018-05-19
  */
+@Data
 @TableName("blog_article")
 public class BlogArticle extends Model<BlogArticle> {
 
@@ -87,149 +90,8 @@ public class BlogArticle extends Model<BlogArticle> {
     private Date updateTime;
 
 
-    public Long getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getCoverImage() {
-        return coverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
-    }
-
-    public String getQrcodePath() {
-        return qrcodePath;
-    }
-
-    public void setQrcodePath(String qrcodePath) {
-        this.qrcodePath = qrcodePath;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getTop() {
-        return top;
-    }
-
-    public void setTop(Integer top) {
-        this.top = top;
-    }
-
-    public Long getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Long typeId) {
-        this.typeId = typeId;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getRecommended() {
-        return recommended;
-    }
-
-    public void setRecommended(Integer recommended) {
-        this.recommended = recommended;
-    }
-
-    public Integer getOriginal() {
-        return original;
-    }
-
-    public void setOriginal(Integer original) {
-        this.original = original;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.articleId;
-    }
-
-    @Override
-    public String toString() {
-        return "BlogArticle{" +
-        ", articleId=" + articleId +
-        ", title=" + title +
-        ", userId=" + userId +
-        ", coverImage=" + coverImage +
-        ", qrcodePath=" + qrcodePath +
-        ", content=" + content +
-        ", top=" + top +
-        ", typeId=" + typeId +
-        ", status=" + status +
-        ", recommended=" + recommended +
-        ", original=" + original +
-        ", description=" + description +
-        ", keywords=" + keywords +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        "}";
     }
 }

@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,7 @@ import java.io.Serializable;
  * @author Mr.Li   ℗Hide-Community
  * @since 2018-05-19
  */
+@Data
 @TableName("sys_oss")
 public class SysOss extends Model<SysOss> {
 
@@ -34,41 +37,9 @@ public class SysOss extends Model<SysOss> {
     private Date createDate;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
     }
 
-    @Override
-    public String toString() {
-        return "SysOss{" +
-        ", id=" + id +
-        ", url=" + url +
-        ", createDate=" + createDate +
-        "}";
-    }
 }

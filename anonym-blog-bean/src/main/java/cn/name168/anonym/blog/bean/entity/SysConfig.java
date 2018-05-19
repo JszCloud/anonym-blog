@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +17,7 @@ import java.io.Serializable;
  * @author Mr.Li   ℗Hide-Community
  * @since 2018-05-19
  */
+@Data
 @TableName("sys_config")
 public class SysConfig extends Model<SysConfig> {
 
@@ -42,59 +45,8 @@ public class SysConfig extends Model<SysConfig> {
     private String remark;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getParamKey() {
-        return paramKey;
-    }
-
-    public void setParamKey(String paramKey) {
-        this.paramKey = paramKey;
-    }
-
-    public String getParamValue() {
-        return paramValue;
-    }
-
-    public void setParamValue(String paramValue) {
-        this.paramValue = paramValue;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
-    }
-
-    @Override
-    public String toString() {
-        return "SysConfig{" +
-        ", id=" + id +
-        ", paramKey=" + paramKey +
-        ", paramValue=" + paramValue +
-        ", status=" + status +
-        ", remark=" + remark +
-        "}";
     }
 }
