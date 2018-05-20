@@ -13,4 +13,18 @@
         lombok
         fastjson
         slf4j
-        
+ 日志：
+    2018.5.20
+ 
+  ```java
+   1、 
+    @SpringBootApplication(scanBasePackages="cn.name168.anonym.blog")
+    @MapperScan("cn.name168.anonym.blog.service.mapper")
+    //启动类中配置扫描
+    
+   2、application配置加入service中的配置
+      spring:
+        profiles:
+          active: service，prod(or dev),
+    
+  ```

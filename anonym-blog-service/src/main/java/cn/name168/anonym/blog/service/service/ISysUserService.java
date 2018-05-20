@@ -2,6 +2,9 @@ package cn.name168.anonym.blog.service.service;
 
 
 import cn.name168.anonym.blog.bean.entity.SysUser;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,5 @@ import cn.name168.anonym.blog.bean.entity.SysUser;
  * @since 2018-05-19
  */
 public interface ISysUserService extends BaseService<SysUser> {
-
+    List<SysUser> findAll();
 }

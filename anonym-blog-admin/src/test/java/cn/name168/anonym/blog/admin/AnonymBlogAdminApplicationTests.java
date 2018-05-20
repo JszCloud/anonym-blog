@@ -11,6 +11,7 @@ public class AnonymBlogAdminApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		System.out.println("44444");
 	}
 
 }
