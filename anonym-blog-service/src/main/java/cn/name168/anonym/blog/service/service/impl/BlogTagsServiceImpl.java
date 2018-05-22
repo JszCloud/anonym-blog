@@ -14,6 +14,37 @@ import org.springframework.stereotype.Service;
  * @since 2018-05-19
  */
 @Service
-public class BlogTagsServiceImpl extends BaseServiceImpl<BlogTags> implements IBlogTagsService {
+public class BlogTagsServiceImpl implements IBlogTagsService {
+    /**
+     * 添加
+     *
+     * @param blogTags
+     * @return
+     */
+    @Override
+    public Integer save(BlogTags blogTags) {
+        return null;
+    }
 
+    /**
+     * 删除
+     *
+     * @param blogTags
+     * @return
+     */
+    @Override
+    public Integer romove(BlogTags blogTags) {
+        return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param blogTags
+     * @return
+     */
+    @Override
+    public Integer edit(BlogTags blogTags) {
+        return null;
+    }
 }

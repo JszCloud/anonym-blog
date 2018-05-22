@@ -19,7 +19,7 @@ import java.util.List;
  * @since 2018-05-19
  */
 @Service
-public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements ISysUserService {
+public class SysUserServiceImpl implements ISysUserService {
 
     @Autowired
     SysUserMapper sysUserMapper;
@@ -31,5 +31,50 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements ISys
                 new EntityWrapper<SysUser>().eq("username","admin")
         );
         return userList;
+    }
+
+    /**
+     * 用户名查询用户
+     *
+     * @param username
+     * @return
+     */
+    @Override
+    public SysUser findByUsername(String username) {
+
+        return sysUserMapper.selectByName(username);
+    }
+
+    /**
+     * 添加
+     *
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public Integer save(SysUser sysUser) {
+        return null;
+    }
+
+    /**
+     * 删除
+     *
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public Integer romove(SysUser sysUser) {
+        return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public Integer edit(SysUser sysUser) {
+        return null;
     }
 }

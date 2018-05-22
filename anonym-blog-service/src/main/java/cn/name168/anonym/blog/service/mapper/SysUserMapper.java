@@ -19,5 +19,5 @@ import java.util.List;
 @Mapper
 @Repository
 public interface SysUserMapper extends BaseMapper<SysUser>{
-
+    SysUser selectByName(String username);
 }

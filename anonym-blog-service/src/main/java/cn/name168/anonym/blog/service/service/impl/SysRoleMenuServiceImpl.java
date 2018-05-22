@@ -14,6 +14,37 @@ import org.springframework.stereotype.Service;
  * @since 2018-05-19
  */
 @Service
-public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenu> implements ISysRoleMenuService {
+public class SysRoleMenuServiceImpl implements ISysRoleMenuService {
+    /**
+     * 添加
+     *
+     * @param sysRoleMenu
+     * @return
+     */
+    @Override
+    public Integer save(SysRoleMenu sysRoleMenu) {
+        return null;
+    }
 
+    /**
+     * 删除
+     *
+     * @param sysRoleMenu
+     * @return
+     */
+    @Override
+    public Integer romove(SysRoleMenu sysRoleMenu) {
+        return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param sysRoleMenu
+     * @return
+     */
+    @Override
+    public Integer edit(SysRoleMenu sysRoleMenu) {
+        return null;
+    }
 }

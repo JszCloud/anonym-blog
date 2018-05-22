@@ -3,6 +3,9 @@ spring:
     active: prod,service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
 server:
     tomcat:
         uri-encoding: UTF-8

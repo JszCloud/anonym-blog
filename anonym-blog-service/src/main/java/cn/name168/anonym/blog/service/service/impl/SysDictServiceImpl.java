@@ -14,6 +14,37 @@ import org.springframework.stereotype.Service;
  * @since 2018-05-19
  */
 @Service
-public class SysDictServiceImpl extends BaseServiceImpl<SysDict> implements ISysDictService {
+public class SysDictServiceImpl implements ISysDictService {
+    /**
+     * 添加
+     *
+     * @param sysDict
+     * @return
+     */
+    @Override
+    public Integer save(SysDict sysDict) {
+        return null;
+    }
 
+    /**
+     * 删除
+     *
+     * @param sysDict
+     * @return
+     */
+    @Override
+    public Integer romove(SysDict sysDict) {
+        return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param sysDict
+     * @return
+     */
+    @Override
+    public Integer edit(SysDict sysDict) {
+        return null;
+    }
 }

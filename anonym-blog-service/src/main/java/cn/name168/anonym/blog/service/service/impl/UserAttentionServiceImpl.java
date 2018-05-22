@@ -14,6 +14,37 @@ import org.springframework.stereotype.Service;
  * @since 2018-05-19
  */
 @Service
-public class UserAttentionServiceImpl extends BaseServiceImpl<UserAttention> implements IUserAttentionService {
+public class UserAttentionServiceImpl implements IUserAttentionService {
+    /**
+     * 添加
+     *
+     * @param userAttention
+     * @return
+     */
+    @Override
+    public Integer save(UserAttention userAttention) {
+        return null;
+    }
 
+    /**
+     * 删除
+     *
+     * @param userAttention
+     * @return
+     */
+    @Override
+    public Integer romove(UserAttention userAttention) {
+        return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param userAttention
+     * @return
+     */
+    @Override
+    public Integer edit(UserAttention userAttention) {
+        return null;
+    }
 }

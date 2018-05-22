@@ -16,4 +16,11 @@ import java.util.List;
  */
 public interface ISysUserService extends BaseService<SysUser> {
     List<SysUser> findAll();
+
+    /**
+     * 用户名查询用户
+     * @param username
+     * @return
+     */
+    SysUser findByUsername(String username);
 }

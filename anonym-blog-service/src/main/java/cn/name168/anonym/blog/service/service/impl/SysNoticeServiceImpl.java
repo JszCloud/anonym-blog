@@ -14,6 +14,37 @@ import org.springframework.stereotype.Service;
  * @since 2018-05-19
  */
 @Service
-public class SysNoticeServiceImpl extends BaseServiceImpl<SysNotice> implements ISysNoticeService {
+public class SysNoticeServiceImpl implements ISysNoticeService {
+    /**
+     * 添加
+     *
+     * @param sysNotice
+     * @return
+     */
+    @Override
+    public Integer save(SysNotice sysNotice) {
+        return null;
+    }
 
+    /**
+     * 删除
+     *
+     * @param sysNotice
+     * @return
+     */
+    @Override
+    public Integer romove(SysNotice sysNotice) {
+        return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param sysNotice
+     * @return
+     */
+    @Override
+    public Integer edit(SysNotice sysNotice) {
+        return null;
+    }
 }

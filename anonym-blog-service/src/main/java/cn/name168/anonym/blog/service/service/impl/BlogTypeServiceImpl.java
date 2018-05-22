@@ -14,6 +14,37 @@ import org.springframework.stereotype.Service;
  * @since 2018-05-19
  */
 @Service
-public class BlogTypeServiceImpl extends BaseServiceImpl<BlogType> implements IBlogTypeService {
+public class BlogTypeServiceImpl implements IBlogTypeService {
+    /**
+     * 添加
+     *
+     * @param blogType
+     * @return
+     */
+    @Override
+    public Integer save(BlogType blogType) {
+        return null;
+    }
 
+    /**
+     * 删除
+     *
+     * @param blogType
+     * @return
+     */
+    @Override
+    public Integer romove(BlogType blogType) {
+        return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param blogType
+     * @return
+     */
+    @Override
+    public Integer edit(BlogType blogType) {
+        return null;
+    }
 }

@@ -30,8 +30,9 @@ public class SysUserController extends BaseController {
 
     @RequestMapping("find")
     @ResponseBody
-    public List<SysUser> findAll(){
-        return iSysUserService.findAll();
+    public SysUser findAll(){
+        //return iSysUserService.findAll();
+        return iSysUserService.findByUsername("admin");
     }
 }
 

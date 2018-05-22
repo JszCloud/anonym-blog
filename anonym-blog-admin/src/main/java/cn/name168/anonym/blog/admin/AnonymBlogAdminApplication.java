@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(scanBasePackages="cn.name168.anonym.blog")
-@MapperScan("cn.name168.anonym.blog.service.mapper")
+@MapperScan("cn.name168.anonym.blog.service.mapper")//配置扫描mapper
 public class AnonymBlogAdminApplication {
 
 	public static void main(String[] args) {

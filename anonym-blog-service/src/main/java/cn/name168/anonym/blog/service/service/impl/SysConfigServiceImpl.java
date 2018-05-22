@@ -14,6 +14,37 @@ import org.springframework.stereotype.Service;
  * @since 2018-05-19
  */
 @Service
-public class SysConfigServiceImpl extends BaseServiceImpl<SysConfig> implements ISysConfigService {
+public class SysConfigServiceImpl implements ISysConfigService {
+    /**
+     * 添加
+     *
+     * @param sysConfig
+     * @return
+     */
+    @Override
+    public Integer save(SysConfig sysConfig) {
+        return null;
+    }
 
+    /**
+     * 删除
+     *
+     * @param sysConfig
+     * @return
+     */
+    @Override
+    public Integer romove(SysConfig sysConfig) {
+        return null;
+    }
+
+    /**
+     * 修改
+     *
+     * @param sysConfig
+     * @return
+     */
+    @Override
+    public Integer edit(SysConfig sysConfig) {
+        return null;
+    }
 }
