@@ -16,7 +16,8 @@ import java.io.IOException;
 
 /**
  * oauth2过滤器
- *
+ * Created by Nominal on 2018/5/21 0021.
+ * 微博：@Mr丶Li_Anonym
  */
 public class OAuth2Filter extends AuthenticatingFilter {
 

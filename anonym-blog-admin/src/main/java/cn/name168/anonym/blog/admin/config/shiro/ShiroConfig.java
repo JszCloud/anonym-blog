@@ -1,8 +1,11 @@
 package cn.name168.anonym.blog.admin.config.shiro;
 
 import cn.name168.anonym.blog.bean.entity.SysMenu;
+import cn.name168.anonym.blog.service.mapper.SysMenuMapper;
 import cn.name168.anonym.blog.service.service.ISysMenuService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -13,6 +16,7 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -30,12 +34,13 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-
+    @Autowired
+    ISysMenuService iSysMenuService;
     //过滤器
-    @Bean(name="shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
+    @Bean(name = "shiroFilter")
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 
-        ShiroFilterFactoryBean shiroFilterFactoryBean=new ShiroFilterFactoryBean();
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
@@ -45,13 +50,9 @@ public class ShiroConfig {
         // 未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
-        //oauth过滤
-        Map<String, Filter> filters = new HashMap<>();
-        filters.put("oauth2", new OAuth2Filter());
-        shiroFilterFactoryBean.setFilters(filters);
 
         //拦截器
-        Map<String,String> filterChainDefinitionMap =new LinkedHashMap<String,String>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         //配置不会拦截的链接 顺序判断
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/signin", "anon");
@@ -61,6 +62,15 @@ public class ShiroConfig {
         //filterChainDefinitionMap.put("/add", "perms[权限添加]");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+        //自定义加载权限资源关系
+        List<SysMenu> sysMenus = iSysMenuService.findAll();
+        for (SysMenu sysMenu : sysMenus) {
+            if (!StringUtils.isEmpty(sysMenu.getUrl())){
+                String permission = "perms[" + sysMenu.getPerms()+ "]";
+                filterChainDefinitionMap.put(sysMenu.getUrl(),permission);
+                System.out.println("权限列表"+sysMenu.getUrl()+"||"+permission);
+            }
+        }
         filterChainDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -69,7 +79,12 @@ public class ShiroConfig {
     }
 
 
-
+    /**
+     * 会话管理
+     *
+     * @param myShiroRealm
+     * @return
+     */
    /* @Bean("sessionManager")
     public SessionManager sessionManager(){
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
@@ -78,7 +93,7 @@ public class ShiroConfig {
         return sessionManager;
     }*/
 
-    //配置核心安全事务管理器
+    //配置核心安全事务管理器 SecurityManager，权限管理，这个类组合了登陆，登出，权限，session的处理
     @Bean("securityManager")
     public SecurityManager securityManager(MyShiroRealm myShiroRealm) {
         System.err.println("--------------shiro已经加载----------------");
@@ -89,31 +104,79 @@ public class ShiroConfig {
         //securityManager.setSessionManager(sessionManager);
         return securityManager;
     }
+
     //身份认证realm; (账号密码校验；权限等)
-    @Bean
+   /* @Bean
     public MyShiroRealm myShiroRealm() {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
         return myShiroRealm;
-    }
+    }*/
 
 
-
-    //将生命周期交给springboot管理
-    /*@Bean(name = "lifecycleBeanPostProcessor")
+    /**
+     * LifecycleBeanPostProcessor，这是个DestructionAwareBeanPostProcessor的子类，
+     * 负责org.apache.shiro.util.Initializable类型bean的生命周期的，初始化和销毁。
+     * 主要是AuthorizingRealm类的子类，以及EhCacheManager类。
+     */
+    @Bean(name = "lifecycleBeanPostProcessor")
     public static LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
 
-    @Bean
+
+
+
+    /**
+     * HashedCredentialsMatcher，这个类是为了对密码进行编码的，
+     * 防止密码在数据库里明码保存，当然在登陆认证的时候，
+     * 这个类也负责对form里输入的密码进行编码。
+     */
+    @Bean(name = "hashedCredentialsMatcher")
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        credentialsMatcher.setHashAlgorithmName("MD5");
+        credentialsMatcher.setHashIterations(2);
+        credentialsMatcher.setStoredCredentialsHexEncoded(true);
+        return credentialsMatcher;
+    }
+
+    /**
+     * ShiroRealm，这是个自定义的认证类，继承自AuthorizingRealm，
+     * 负责用户的认证和权限的处理，可以参考JdbcRealm的实现。
+     */
+    @Bean(name = "shiroRealm")
     @DependsOn("lifecycleBeanPostProcessor")
+    public MyShiroRealm shiroRealm() {
+        MyShiroRealm realm = new MyShiroRealm();
+        realm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return realm;
+    }
+
+    //    /**
+//     * EhCacheManager，缓存管理，用户登陆成功后，把用户信息和权限信息缓存起来，
+//     * 然后每次用户请求时，放入用户的session中，如果不设置这个bean，每个请求都会查询一次数据库。
+//     */
+//    @Bean(name = "ehCacheManager")
+//    @DependsOn("lifecycleBeanPostProcessor")
+//    public EhCacheManager ehCacheManager() {
+//        return new EhCacheManager();
+//    }
+
+    /**
+     * DefaultAdvisorAutoProxyCreator，Spring的一个bean，由Advisor决定对哪些类的方法进行AOP代理。
+     */
+    @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-        DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
-        creator.setProxyTargetClass(true);
-        return creator;
-    }*/
+        DefaultAdvisorAutoProxyCreator defaultAAP = new DefaultAdvisorAutoProxyCreator();
+        defaultAAP.setProxyTargetClass(true);
+        return defaultAAP;
+    }
 
-
-    //核心安全配适器，必须的
+    /**
+     * 核心安全配适器，必须的
+     * AuthorizationAttributeSourceAdvisor，shiro里实现的Advisor类，
+     * 内部使用AopAllianceAnnotationsAuthorizingMethodInterceptor来拦截用以下注解的方法。
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
@@ -121,17 +184,5 @@ public class ShiroConfig {
         return advisor;
     }
 
-    //配置自定义的密码比较器   如果没有自定义密码则不需要
-    /*@Bean(name="credentialsMatcher")
-    public CredentialsMatcher credentialsMatcher() {
-        return new AuthCredential();
-    }*/
-    //配置自定义的权限登录器  没有自定义的类就小心配置。我这里是自定义配置类了
-    /*@Bean(name="authRealm")
-    public AuthRealm authRealm(CredentialsMatcher matcher) {
-        AuthRealm authRealm=new AuthRealm();
-        authRealm.setCredentialsMatcher(matcher);
-        return authRealm;
-    }*/
 
 }

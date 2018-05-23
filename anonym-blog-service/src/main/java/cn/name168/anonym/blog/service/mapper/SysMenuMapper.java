@@ -17,11 +17,11 @@ import java.util.List;
 @Repository
 public interface SysMenuMapper {
     /**
-     * 根据角色id查询菜单
-     * @param roleId
+     * 根据用户id查询菜单
+     * @param userId
      * @return
      */
-     List<SysMenu> selectByRoleId(Long roleId);
+     List<SysMenu> selectByUserId(Long userId);
 
     /**
      * 查询所有资源

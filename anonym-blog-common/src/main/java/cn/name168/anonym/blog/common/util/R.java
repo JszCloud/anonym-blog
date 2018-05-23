@@ -8,7 +8,8 @@ import java.util.Map;
 
 /**
  * 返回数据
- *
+ * Created by Nominal on 2018/5/21 0021.
+ * 微博：@Mr丶Li_Anonym
  */
 public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;

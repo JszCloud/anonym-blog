@@ -15,11 +15,11 @@ import java.util.List;
  */
 public interface ISysMenuService extends BaseService<SysMenu> {
     /**
-     * 根据角色id查找资源
-     * @param roleId
+     * 根据用户id查找资源
+     * @param userId
      * @return
      */
-    List<SysMenu> findByRoleId(Long roleId);
+    List<SysMenu> findByUserId(Long userId);
 
     /**
      * 查询所有权限

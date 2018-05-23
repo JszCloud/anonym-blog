@@ -13,13 +13,11 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Nominal on 2018/5/21 0021.
@@ -30,9 +28,14 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Autowired
     ISysUserService iSysUserService;
+    @Autowired
+    ISysRoleService iSysRoleService;
+    @Autowired
+    ISysMenuService iSysMenuService;
 
     @Autowired
     ShiroService shiroService;
+
 
     /**
      * 提供账户信息返回认证信息（用户的角色信息集合）
@@ -50,10 +53,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
 
         // principal参数使用用户Id，方便动态刷新用户权限
-        return new SimpleAuthenticationInfo(
-                user,
-                user.getPassword(),
-                getName());
+        return new SimpleAuthenticationInfo(username,user.getPassword(),getName());
     }
 
     /**
@@ -62,19 +62,33 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("权限认证方法：MyShiroRealm.doGetAuthenticationInfo()");
-        // 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
+        System.out.println("打印："+SecurityUtils.getSubject().getPrincipal());
         //Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
-        SysUser token = (SysUser)SecurityUtils.getSubject().getPrincipal();
+        SysUser token = iSysUserService.findByUsername(String.valueOf(SecurityUtils.getSubject().getPrincipal()));
         Long userId =token.getUserId();
 
+        // 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //用户权限列表
-        Set<String> permsSet = shiroService.getUserPermissions(userId);
+       /* Set<String> permsSet = shiroService.getUserPermissions(userId);
 
-        info.addStringPermissions(permsSet);
-
-
+        info.addStringPermissions(permsSet);*/
+        List<SysRole> roles=iSysRoleService.findByUserId(userId);
+        //赋予角色
+        for (SysRole role : roles) {
+            System.out.println("角色："+role.getRoleName());
+            info.addRole(role.getRoleName());
+        }
+        List<SysMenu> sysMenus=iSysMenuService.findByUserId(userId);
+        //赋予权限
+        for (SysMenu sysMenu : sysMenus) {
+            List<String> per=Arrays.asList(sysMenu.getPerms().trim().split(","));
+            for (String pers : per) {
+                System.out.println("权限："+pers);
+                info.addStringPermission(pers);
+            }
+        }
 
         return info;
     }

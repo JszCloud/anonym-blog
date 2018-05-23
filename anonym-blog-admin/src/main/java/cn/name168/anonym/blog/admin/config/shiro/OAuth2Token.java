@@ -5,10 +5,8 @@ import org.apache.shiro.authc.AuthenticationToken;
 
 /**
  * token
- *
- * @author czx
- * @email object_czx@163.com
- * @date 2017-05-20 13:22
+ * Created by Nominal on 2018/5/21 0021.
+ * 微博：@Mr丶Li_Anonym
  */
 public class OAuth2Token implements AuthenticationToken {
     private String token;

@@ -25,12 +25,12 @@ public class SysMenuServiceImpl implements ISysMenuService {
     /**
      * 根据角色id查找资源
      *
-     * @param roleId
+     * @param userId
      * @return
      */
     @Override
-    public List<SysMenu> findByRoleId(Long roleId) {
-        return sysMenuMapper.selectByRoleId(roleId);
+    public List<SysMenu> findByUserId(Long userId) {
+        return sysMenuMapper.selectByUserId(userId);
     }
 
     /**
