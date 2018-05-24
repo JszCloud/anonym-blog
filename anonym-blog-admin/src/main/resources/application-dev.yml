@@ -1,5 +1,20 @@
 spring:
+  #数据库连接配置
   datasource:
+    #连接地址及数据库
     url: jdbc:mysql://127.0.0.1:3306/hide-blog?useUnicode=true&characterEncoding=utf-8
+    #用户名
     username: root
+    #密码
     password: admin
+
+  #redis
+  redis:
+    # Redis服务器地址
+    host: 118.24.42.127
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码
+    password: admin123
+    # 连接超时时间（毫秒）
+    timeout: 0

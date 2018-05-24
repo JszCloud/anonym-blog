@@ -1,14 +1,38 @@
 spring:
   profiles:
+    #配置环境 prod 生产环境 dev 开发环境 service 业务层配置
     active: prod,service
   datasource:
+    #数据库驱动配置
     driver-class-name: com.mysql.jdbc.Driver
+  #模板引擎
   thymeleaf:
+    #取消缓存
     cache: false
     mode: LEGACYHTML5
+  #redis
+  redis:
+    jedis:
+      pool:
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+
+
 server:
+    #tomcat配置
     tomcat:
         uri-encoding: UTF-8
         max-threads: 1000
         min-spare-threads: 30
+    #端口设置
     port: 8080
+    #项目地址
+    servlet:
+      path: /
+
