@@ -35,6 +35,25 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.name168</groupId>
+			<artifactId>anonym-blog-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.name168</groupId>
+			<artifactId>anonym-blog-service</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.name168</groupId>
+			<artifactId>anonym-blog-bean</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 
 		<!--swagger-ui接口开发-->
 		<dependency>
